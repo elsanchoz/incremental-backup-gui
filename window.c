@@ -203,7 +203,7 @@ int main()
 	gtk_box_pack_start(GTK_BOX(horizontal12), label2, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal13), spinner, TRUE, TRUE,0);
 	
-	sprintf(command_version, "~/incremental-backup/bin/incremental-backup -V");
+	sprintf(command_version, "/usr/bin/incremental-backup -V");
 	version = popen(command_version, "r");
 	fgets(data_version, DATA_SIZE, version);
 	data_version[strlen(data_version) - 1] = '\0'; // remove trailing newline
