@@ -19,10 +19,6 @@ GtkWidget *cb_skip_hidden;
 GtkWidget *cb_full;
 GtkWidget *cb_yes;
 GtkWidget *cb_stats;
-//GtkWidget *sw_skip_hidden;
-//GtkWidget *sw_full;
-//GtkWidget *sw_yes;
-//GtkWidget *sw_stats;
 //GtkWidget *label1;
 GtkWidget *label_path;
 GtkWidget *label_algorithm;
@@ -50,10 +46,6 @@ GtkWidget *horizontal10;
 GtkWidget *horizontal11;
 GtkWidget *horizontal12;
 GtkWidget *horizontal13;
-
-FILE *pf;
-char command[COMMAND_LEN];
-char data[DATA_SIZE];
 
 FILE *version;
 char command_version[COMMAND_LEN];
@@ -121,10 +113,6 @@ int main()
 	sizegroup1 = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
 	sizegroup2 = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
 	sizegroup3 = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
-	//sw_stats = gtk_switch_new();
-	//sw_yes = gtk_switch_new();
-	//sw_full = gtk_switch_new();
-	//sw_skip_hidden = gtk_switch_new();
 
 	scrolled_window = gtk_scrolled_window_new(NULL,NULL);
 	vertical = gtk_box_new (GTK_ORIENTATION_VERTICAL, 15);
@@ -154,10 +142,6 @@ int main()
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_full);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_yes);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_stats);
-	//gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), sw_skip_hidden);
-	//gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), sw_full);
-	//gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), sw_yes);
-	//gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), sw_stats);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), label2);
 
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup3), button_path);
@@ -189,14 +173,10 @@ int main()
 	gtk_box_pack_start(GTK_BOX(horizontal3), button_index, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal4), label_source, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal4), button_source, TRUE, TRUE,30);
-	// gtk_box_pack_start(GTK_BOX(horizontal5), space, TRUE, TRUE,30);
-	// gtk_box_pack_start(GTK_BOX(horizontal5), space, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal6), cb_skip_hidden, TRUE, FALSE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal7), cb_full, TRUE, FALSE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal8), cb_yes, TRUE, FALSE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal9), cb_stats, TRUE, FALSE,0);
-	// gtk_box_pack_start(GTK_BOX(horizontal10), space, TRUE, FALSE,0);
-	// gtk_box_pack_start(GTK_BOX(horizontal10), space, TRUE, FALSE,0);
 	//gtk_box_pack_start(GTK_BOX(horizontal9), label1, TRUE, TRUE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal11), command_entry, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal11), startba, TRUE, TRUE,30);
@@ -214,7 +194,6 @@ int main()
 	gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(header_bar), TRUE);
 	gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
 	gtk_header_bar_set_title(GTK_HEADER_BAR(header_bar), "Incremental Backup GUI");
-	// gtk_header_bar_set_subtitle(GTK_HEADER_BAR(header_bar), "a|a|C|C|G");
 	gtk_header_bar_set_subtitle(GTK_HEADER_BAR(header_bar), data_version);
 
 	//GTK WINDOW
@@ -255,13 +234,6 @@ int main()
 	gtk_container_set_border_width(GTK_CONTAINER(vertical),15);
 
 	g_signal_connect(window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
-
-	// POPEN
-	// sprintf(command, "~/incremental-backup/bin/incremental-backup --help");
-	// pf = popen(command,"w");
- //    fgets(data, DATA_SIZE , pf);
- //    fprintf(stdout, "%s\n",data);
-	// pclose(pf);
 
 	gtk_widget_show_all(window);
 	gtk_main();
