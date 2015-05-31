@@ -5,7 +5,7 @@
 #include "main.h"
 #include "assignments.c"
 
-void toggle_hidden (GtkWidget *widget, gpointer *data)
+void toggle_hidden(GtkWidget *widget, gpointer *data)
 {
 	UNUSED(data);
 	UNUSED(widget);
@@ -13,7 +13,7 @@ void toggle_hidden (GtkWidget *widget, gpointer *data)
     printf("Alle meine Entchen\n");
 }
 
-void toggle_full (GtkWidget *widget, gpointer *data)
+void toggle_full(GtkWidget *widget, gpointer *data)
 {
 	UNUSED(data);
 	UNUSED(widget);
@@ -21,7 +21,7 @@ void toggle_full (GtkWidget *widget, gpointer *data)
 	printf("Schwimmen auf dem See\n");
 }
 
-void toggle_yes (GtkWidget *widget, gpointer *data)
+void toggle_yes(GtkWidget *widget, gpointer *data)
 {
 	UNUSED(data);
 	UNUSED(widget);
@@ -29,7 +29,7 @@ void toggle_yes (GtkWidget *widget, gpointer *data)
 	printf("Köpchen unters Wasser\n");
 }
 
-void toggle_stats (GtkWidget *widget, gpointer *data)
+void toggle_stats(GtkWidget *widget, gpointer *data)
 {
 	UNUSED(data);
 	UNUSED(widget);
@@ -37,18 +37,17 @@ void toggle_stats (GtkWidget *widget, gpointer *data)
 	printf("Schwänzchen in die Höh\n");
 }
 
-int main()
+// GTK FILE CHOOSER
+void filechooser()
 {
-	gtk_init(NULL, NULL);
-
-	assign_stuff();
-
-	// GTK FILE CHOOSER
 	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(button_path), "/home/");
 	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(button_source), "/");
 	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(button_source), "/home/");
+}
 
-	// GTK SIZE GROUP
+// GTK SIZE GROUP
+void sizegroup()
+{
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_path);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_algorithm);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_index);
@@ -66,9 +65,11 @@ int main()
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup3), button_index);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup3), button_source);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup3), startba);
+}
 
-	
-	// GTK COMBO BOX
+// GTK COMBO BOX
+void combobox()
+{
 	gtk_combo_box_text_insert(GTK_COMBO_BOX_TEXT(cb_algorithm), 0, "id1", "b64encode");
 	gtk_combo_box_text_insert(GTK_COMBO_BOX_TEXT(cb_algorithm), 1, "id2", "bzip2");
 	gtk_combo_box_text_insert(GTK_COMBO_BOX_TEXT(cb_algorithm), 2, "id3", "compress");
@@ -80,8 +81,11 @@ int main()
 	gtk_combo_box_text_insert(GTK_COMBO_BOX_TEXT(cb_algorithm), 8, "id9", "uuencode");
 	gtk_combo_box_text_insert(GTK_COMBO_BOX_TEXT(cb_algorithm), 9, "id10", "xz");
 	gtk_combo_box_set_active(GTK_COMBO_BOX(cb_algorithm), 4);
-	
-	// GTK BOX
+}
+
+// GTK BOX
+void gtkbox()
+{
 	gtk_box_pack_start(GTK_BOX(horizontal1), label_path, TRUE, TRUE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal1), button_path, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal2), label_algorithm, TRUE, TRUE,0);
@@ -98,6 +102,36 @@ int main()
 	gtk_box_pack_start(GTK_BOX(horizontal11), startba, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal12), label2, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal13), spinner, TRUE, TRUE,0);
+}
+
+void pack_box()
+{
+	gtk_container_add(GTK_CONTAINER(window), scrolled_window);
+	gtk_container_add(GTK_CONTAINER(scrolled_window), vertical);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal1, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal2, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal3, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal4, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal5, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal6, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal7, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal8, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal9, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal10, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal11, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal12, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vertical), horizontal13, FALSE, FALSE, 0);
+}
+
+int main()
+{
+	gtk_init(NULL, NULL);
+
+	assign_stuff();
+	filechooser();
+	sizegroup();	
+	combobox();
+	gtkbox();
 	
 	sprintf(command_version, "/usr/bin/incremental-backup -V");
 	version = popen(command_version, "r");
@@ -131,21 +165,7 @@ int main()
 	g_signal_connect(cb_full, "toggled", G_CALLBACK(toggle_full), NULL);
 	g_signal_connect(cb_yes, "toggled", G_CALLBACK(toggle_yes), NULL);
 
-	gtk_container_add(GTK_CONTAINER(window), scrolled_window);
-	gtk_container_add(GTK_CONTAINER(scrolled_window), vertical);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal1, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal2, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal3, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal4, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal5, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal6, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal7, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal8, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal9, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal10, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal11, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal12, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vertical), horizontal13, FALSE, FALSE, 0);
+	pack_box();
 	
 	gtk_container_set_border_width(GTK_CONTAINER(vertical),15);
 
