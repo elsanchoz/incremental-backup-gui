@@ -2,54 +2,7 @@
 #define COMMAND_LEN 50
 #define DATA_SIZE 512
 
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <glib.h>
-
-GtkWidget *window;
-GtkWidget *button_path;
-GtkWidget *button_source;
-GtkWidget *button_index;
-GtkWidget *header_bar;
-GtkWidget *command_entry;
-GtkWidget *cb_algorithm;
-GtkWidget *cb_skip_hidden;
-GtkWidget *cb_full;
-GtkWidget *cb_yes;
-GtkWidget *cb_stats;
-//GtkWidget *label1;
-GtkWidget *label_path;
-GtkWidget *label_algorithm;
-GtkWidget *label_source;
-GtkWidget *label_index;
-GtkWidget *label2;
-GtkWidget *spinner;
-GtkWidget *startba;
-GtkSizeGroup *sizegroup1;
-GtkSizeGroup *sizegroup2;
-GtkSizeGroup *sizegroup3;
-
-GtkWidget *scrolled_window;
-GtkWidget *vertical;
-GtkWidget *horizontal1;
-GtkWidget *horizontal2;
-GtkWidget *horizontal3;
-GtkWidget *horizontal4;
-GtkWidget *horizontal5;
-GtkWidget *horizontal6;
-GtkWidget *horizontal7;
-GtkWidget *horizontal8;
-GtkWidget *horizontal9;
-GtkWidget *horizontal10;
-GtkWidget *horizontal11;
-GtkWidget *horizontal12;
-GtkWidget *horizontal13;
-
-FILE *version;
-char command_version[COMMAND_LEN];
-char data_version[DATA_SIZE];
+#include "main.h"
 
 void toggle_hidden (GtkWidget *widget, gpointer *data)
 {
@@ -85,9 +38,9 @@ void toggle_stats (GtkWidget *widget, gpointer *data)
 
 int main()
 {
-	gtk_init (NULL, NULL);
+	gtk_init(NULL, NULL);
 
-	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	
 	button_path = gtk_file_chooser_button_new("Select a directory", GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 	button_source = gtk_file_chooser_button_new("Select a directory", GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
@@ -102,7 +55,6 @@ int main()
 	cb_full = gtk_check_button_new_with_label("Ignore index file and make a full backup");
 	cb_yes = gtk_check_button_new_with_label("Answer all questions with yes (script-friendly)"); 
 	cb_stats = gtk_check_button_new_with_label("Show stats at the end");
-	//label1 = gtk_label_new("Command: ");
 	label2 = gtk_label_new("'-v' = verbose (REQUIRED)");
 	label_path = gtk_label_new("Path to generated archive file:");
 	label_algorithm = gtk_label_new("Compression algorithm:");
@@ -135,7 +87,6 @@ int main()
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_algorithm);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_index);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_source);
-	//gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label1);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), command_entry);
 
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_skip_hidden);
@@ -177,7 +128,6 @@ int main()
 	gtk_box_pack_start(GTK_BOX(horizontal7), cb_full, TRUE, FALSE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal8), cb_yes, TRUE, FALSE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal9), cb_stats, TRUE, FALSE,0);
-	//gtk_box_pack_start(GTK_BOX(horizontal9), label1, TRUE, TRUE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal11), command_entry, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal11), startba, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal12), label2, TRUE, TRUE,30);
@@ -210,13 +160,13 @@ int main()
 	gtk_widget_set_halign(label_source, GTK_ALIGN_START);
 
 	// TOGGLE BUTTON
-	g_signal_connect(cb_stats, "toggled", G_CALLBACK (toggle_stats), NULL);
-	g_signal_connect(cb_skip_hidden, "toggled", G_CALLBACK (toggle_hidden), NULL);
-	g_signal_connect(cb_full, "toggled", G_CALLBACK (toggle_full), NULL);
-	g_signal_connect(cb_yes, "toggled", G_CALLBACK (toggle_yes), NULL);
+	g_signal_connect(cb_stats, "toggled", G_CALLBACK(toggle_stats), NULL);
+	g_signal_connect(cb_skip_hidden, "toggled", G_CALLBACK(toggle_hidden), NULL);
+	g_signal_connect(cb_full, "toggled", G_CALLBACK(toggle_full), NULL);
+	g_signal_connect(cb_yes, "toggled", G_CALLBACK(toggle_yes), NULL);
 
-	gtk_container_add (GTK_CONTAINER(window), scrolled_window);
-	gtk_container_add (GTK_CONTAINER(scrolled_window), vertical);
+	gtk_container_add(GTK_CONTAINER(window), scrolled_window);
+	gtk_container_add(GTK_CONTAINER(scrolled_window), vertical);
 	gtk_box_pack_start(GTK_BOX(vertical), horizontal1, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vertical), horizontal2, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vertical), horizontal3, FALSE, FALSE, 0);
