@@ -13,16 +13,12 @@ void assign_stuff()
 	button_source = gtk_file_chooser_button_new("Select a directory", GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 	button_index = gtk_file_chooser_button_new("Select a directory", GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 	header_bar = gtk_header_bar_new ();
-	command_entry = gtk_entry_new();
 	cb_algorithm = gtk_combo_box_text_new ();
 	cb_skip_hidden = gtk_check_button_new_with_label("Skip hidden files. (leading '.' in file name)");
 	cb_full = gtk_check_button_new_with_label("Ignore index file and make a full backup");
-	cb_yes = gtk_check_button_new_with_label("Answer all questions with yes (script-friendly)"); 
-	cb_stats = gtk_check_button_new_with_label("Show stats at the end");
-	label2 = gtk_label_new("'-v' = verbose (REQUIRED)");
 	label_path = gtk_label_new("Path to generated archive file:");
 	label_algorithm = gtk_label_new("Compression algorithm:");
-	label_source = gtk_label_new("Path to the directory which should be backupeds:");
+	label_source = gtk_label_new("Path to the directory which should be backuped:");
 	label_index = gtk_label_new("Path to the index directory:");
 	spinner = gtk_spinner_new();
 	startba = gtk_button_new_with_label("Backup!");

@@ -18,9 +18,9 @@ init:
 obj/window.o: window.c
 	$(CC) $(CFLAGS) -c -o obj/window.o window.c $(LIBS)
 
-obj/assingments.o: assignments.c
+obj/assignments.o: assignments.c
 	$(CC) $(CFLAGS) -c -o obj/assignments.o assignments.c $(LIBS)
 
 clean:
 	rm -Rf bin
-
+	rm -Rf obj

@@ -22,22 +22,6 @@ void toggle_full(GtkWidget *widget, gpointer *data)
 	printf("Schwimmen auf dem See\n");
 }
 
-void toggle_yes(GtkWidget *widget, gpointer *data)
-{
-	UNUSED(data);
-	UNUSED(widget);
-
-	printf("Köpchen unters Wasser\n");
-}
-
-void toggle_stats(GtkWidget *widget, gpointer *data)
-{
-	UNUSED(data);
-	UNUSED(widget);
-
-	printf("Schwänzchen in die Höh\n");
-}
-
 // GTK FILE CHOOSER
 void filechooser()
 {
@@ -53,13 +37,9 @@ void sizegroup()
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_algorithm);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_index);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), label_source);
-	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup1), command_entry);
 
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_skip_hidden);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_full);
-	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_yes);
-	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), cb_stats);
-	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup2), label2);
 
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup3), button_path);
 	gtk_size_group_add_widget(GTK_SIZE_GROUP(sizegroup3), cb_algorithm);
@@ -97,11 +77,7 @@ void gtkbox()
 	gtk_box_pack_start(GTK_BOX(horizontal4), button_source, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal6), cb_skip_hidden, TRUE, FALSE,0);
 	gtk_box_pack_start(GTK_BOX(horizontal7), cb_full, TRUE, FALSE,0);
-	gtk_box_pack_start(GTK_BOX(horizontal8), cb_yes, TRUE, FALSE,0);
-	gtk_box_pack_start(GTK_BOX(horizontal9), cb_stats, TRUE, FALSE,0);
-	gtk_box_pack_start(GTK_BOX(horizontal11), command_entry, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal11), startba, TRUE, TRUE,30);
-	gtk_box_pack_start(GTK_BOX(horizontal12), label2, TRUE, TRUE,30);
 	gtk_box_pack_start(GTK_BOX(horizontal13), spinner, TRUE, TRUE,0);
 }
 
@@ -150,10 +126,6 @@ int main()
 	//GTK WINDOW
 	gtk_window_set_default_size((GTK_WINDOW(window)), 800, 800);
 
-	//GTK ENTRY
-	gtk_entry_set_placeholder_text(GTK_ENTRY(command_entry), "Command");
-	gtk_entry_set_text(GTK_ENTRY(command_entry), "-v");
-
 	// GTK LABEL
 	gtk_widget_set_halign(label_path, GTK_ALIGN_START);
 	gtk_widget_set_halign(label_algorithm, GTK_ALIGN_START);
@@ -161,10 +133,8 @@ int main()
 	gtk_widget_set_halign(label_source, GTK_ALIGN_START);
 
 	// TOGGLE BUTTON
-	g_signal_connect(cb_stats, "toggled", G_CALLBACK(toggle_stats), NULL);
 	g_signal_connect(cb_skip_hidden, "toggled", G_CALLBACK(toggle_hidden), NULL);
 	g_signal_connect(cb_full, "toggled", G_CALLBACK(toggle_full), NULL);
-	g_signal_connect(cb_yes, "toggled", G_CALLBACK(toggle_yes), NULL);
 
 	pack_box();
 	
