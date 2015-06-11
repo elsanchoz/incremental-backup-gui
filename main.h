@@ -1,8 +1,6 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <glib.h>
+#define UNUSED(x) (void)(x)
+#define COMMAND_LEN 50
+#define DATA_SIZE 512
 
 GtkWidget *window;
 GtkWidget *button_path;
@@ -45,3 +43,5 @@ GtkWidget *horizontal13;
 FILE *version;
 char command_version[COMMAND_LEN];
 char data_version[DATA_SIZE];
+
+void assign_stuff();

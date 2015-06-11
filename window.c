@@ -1,9 +1,10 @@
-#define UNUSED(x) (void)(x)
-#define COMMAND_LEN 50
-#define DATA_SIZE 512
+#include <gtk/gtk.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <glib.h>
 
 #include "main.h"
-#include "assignments.c"
 
 void toggle_hidden(GtkWidget *widget, gpointer *data)
 {
@@ -132,7 +133,8 @@ int main()
 	sizegroup();	
 	combobox();
 	gtkbox();
-	
+
+	// GTK HEADER BAR	
 	sprintf(command_version, "/usr/bin/incremental-backup -V");
 	version = popen(command_version, "r");
 	fgets(data_version, DATA_SIZE, version);
@@ -140,7 +142,6 @@ int main()
 	fprintf(stdout, "'%s'\n", data_version);
 	pclose(version);
 
-	// GTK HEADER BAR
 	gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(header_bar), TRUE);
 	gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
 	gtk_header_bar_set_title(GTK_HEADER_BAR(header_bar), "Incremental Backup GUI");
