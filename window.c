@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <glib.h>
-
 #include "main.h"
 
 void toggle_hidden(GtkWidget *widget, gpointer *data)
